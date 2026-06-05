@@ -1,6 +1,5 @@
-"use client";
-
 import { useEffect } from "react";
+import { Platform } from "react-native";
 
 const VLIBRAS_URL = "https://vlibras.gov.br/app";
 
@@ -42,8 +41,12 @@ function startVLibras() {
   vlibrasStarted = true;
 }
 
-export default function VLibrasWidget() {
+export function VLibrasWidget() {
   useEffect(() => {
+    if (Platform.OS !== "web" || typeof document === "undefined") {
+      return;
+    }
+
     ensureMarkup();
 
     if (window.VLibras) {

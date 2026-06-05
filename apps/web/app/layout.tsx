@@ -37,8 +37,8 @@ export default function RootLayout({
             {children}
             <SiteFooter />
           </div>
-          <VLibrasWidget />
         </Providers>
+        <VLibrasWidget />
       </body>
     </html>
   );

@@ -8,6 +8,7 @@ import { StyleSheet, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { AppFrame } from "../src/components/app-frame";
+import { VLibrasWidget } from "../src/components/vlibras-widget";
 import {
   PreferencesProvider,
   usePreferences,
@@ -49,6 +50,7 @@ export default function RootLayout() {
           </PreferencesProvider>
         </AppFrame>
       </SafeAreaProvider>
+      <VLibrasWidget />
     </GestureHandlerRootView>
   );
 }
