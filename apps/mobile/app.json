@@ -31,8 +31,16 @@
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro",
+      "output": "static"
     },
-    "plugins": ["expo-router"]
+    "experiments": {
+      "autolinkingModuleResolution": true
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font"
+    ]
   }
 }
