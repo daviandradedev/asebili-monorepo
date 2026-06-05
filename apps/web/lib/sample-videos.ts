@@ -52,7 +52,7 @@ export const SAMPLE_LIBRAS_VIDEOS = [
   {
     id: "familia-pai",
     label: "Father context / pai",
-    description: "Family-context clip for a second portfolio activity.",
+    description: "Family-context clip for a second demo activity.",
     url: "https://assets.mixkit.co/videos/4571/4571-360.mp4",
   },
   {

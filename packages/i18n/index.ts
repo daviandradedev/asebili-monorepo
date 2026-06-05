@@ -104,8 +104,8 @@ export const translations = {
       title: "Missões da sua turma",
       subtitle:
         "Atividades que ensinam português escrito a alunos surdos — com vídeo de instrução em LIBRAS e avaliação de palavras.",
-      demoBadge: "Demo de portfólio",
-      demoTitle: "Pronta para avaliação acadêmica",
+      demoBadge: "Demonstração",
+      demoTitle: "Como testar este ambiente",
       demoMission:
         "Ensina português escrito a surdos que usam LIBRAS. LIBRAS só explica a tarefa — não é o conteúdo avaliado.",
       demoSubtitle:
@@ -343,7 +343,7 @@ export const translations = {
         },
         "familia-pai": {
           label: "Contexto pai",
-          description: "Clip de família para segunda atividade de portfólio.",
+          description: "Clip de família para uma segunda atividade de demonstração.",
         },
         "familia-irmaos": {
           label: "Contexto irmãos",
@@ -547,8 +547,8 @@ export const translations = {
       title: "Your class missions",
       subtitle:
         "Activities that teach written Portuguese to deaf students — LIBRAS instruction video, Portuguese word assessment.",
-      demoBadge: "Portfolio demo",
-      demoTitle: "Ready for academic review",
+      demoBadge: "Live demo",
+      demoTitle: "How to try this environment",
       demoMission:
         "Teaches written Portuguese to deaf LIBRAS users. LIBRAS only explains the task — it is not what gets assessed.",
       demoSubtitle:
@@ -783,7 +783,7 @@ export const translations = {
         },
         "familia-pai": {
           label: "Father context",
-          description: "Family-context clip for a second portfolio activity.",
+          description: "Family-context clip for a second demo activity.",
         },
         "familia-irmaos": {
           label: "Siblings context",

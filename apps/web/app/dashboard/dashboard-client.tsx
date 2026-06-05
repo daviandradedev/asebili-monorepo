@@ -409,8 +409,8 @@ export default function DashboardClient({
           </div>
         </header>
 
-        <section className="portfolio-demo-hero" aria-labelledby="demo-title">
-          <div className="portfolio-demo-copy">
+        <section className="demo-hero" aria-labelledby="demo-title">
+          <div className="demo-hero-copy">
             <span className="demo-status-pill">{t("dashboard.demoBadge")}</span>
             <h2 id="demo-title">{t("dashboard.demoTitle")}</h2>
             <p>{t("dashboard.demoMission")}</p>
