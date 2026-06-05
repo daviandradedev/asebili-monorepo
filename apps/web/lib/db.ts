@@ -1,6 +1,7 @@
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 import * as schema from "@asebili/database/schema";
+import { normalizeDatabaseUrl } from "./database-url";
 
 const globalForDb = globalThis as unknown as {
   asebiliPool?: Pool;
@@ -20,10 +21,14 @@ export function assertDatabaseConfigured() {
   }
 }
 
+const resolvedConnectionString = connectionString
+  ? normalizeDatabaseUrl(connectionString)
+  : undefined;
+
 export const pool =
   globalForDb.asebiliPool ??
   new Pool({
-    connectionString,
+    connectionString: resolvedConnectionString,
     max: Number.isFinite(configuredPoolMax) ? configuredPoolMax : 5,
     idleTimeoutMillis: 30_000,
     connectionTimeoutMillis: 10_000,

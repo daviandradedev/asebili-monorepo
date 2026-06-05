@@ -4,6 +4,7 @@ import { dirname, resolve } from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
 import pg from "pg";
+import { normalizeDatabaseUrl } from "../lib/database-url.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 config({ path: resolve(root, ".env.local") });
@@ -52,7 +53,9 @@ const classMatchers = [
   },
 ];
 
-const client = new pg.Client({ connectionString });
+const client = new pg.Client({
+  connectionString: normalizeDatabaseUrl(connectionString),
+});
 await client.connect();
 
 for (const { pattern, key, title } of activityMatchers) {
