@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1778800192845,
+      "tag": "0000_initial_auth_and_asebili",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1778889600000,
+      "tag": "0001_quiz_answer_details",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1778976000000,
+      "tag": "0002_student_name_on_logs",
+      "breakpoints": true
+    }
+  ]
+}
