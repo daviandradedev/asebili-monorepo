@@ -1,0 +1,36 @@
+{
+  "name": "asebili-monorepo",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:sync-demo": "pnpm --filter web db:sync-demo",
+    "db:sync-visual-quizzes": "pnpm --filter web db:sync-visual-quizzes",
+    "db:ensure-schema": "pnpm --filter web db:ensure-schema",
+    "db:setup": "pnpm db:ensure-schema && pnpm db:migrate && pnpm db:sync-visual-quizzes",
+    "db:push": "drizzle-kit push",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "check-types": "turbo run check-types",
+    "reinstall": "rm -rf node_modules apps/*/node_modules packages/*/node_modules && pnpm install --no-frozen-lockfile"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.20.0",
+    "dotenv": "^17.4.2",
+    "drizzle-kit": "^0.31.10",
+    "prettier": "^3.7.4",
+    "turbo": "^2.9.6",
+    "typescript": "5.9.2"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=18"
+  },
+  "pnpm": {
+    "overrides": {
+      "esbuild": "0.25.12"
+    }
+  }
+}
