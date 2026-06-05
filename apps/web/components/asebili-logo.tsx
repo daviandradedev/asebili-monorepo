@@ -1,0 +1,40 @@
+type AsebiliLogoProps = {
+  size?: number;
+  className?: string;
+  title?: string;
+  decorative?: boolean;
+};
+
+export function AsebiliLogo({
+  size = 48,
+  className,
+  title = "Asebili",
+  decorative = false,
+}: AsebiliLogoProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 -4 64 68"
+      preserveAspectRatio="xMidYMid meet"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      role={decorative ? "presentation" : "img"}
+      aria-hidden={decorative ? true : undefined}
+      aria-label={decorative ? undefined : title}
+    >
+      {decorative ? null : <title>{title}</title>}
+      <ellipse cx="21" cy="15" rx="9" ry="17" fill="#6D5DF6" />
+      <ellipse cx="43" cy="15" rx="9" ry="17" fill="#6D5DF6" />
+      <ellipse cx="21" cy="17" rx="5" ry="11" fill="#FF7A59" />
+      <ellipse cx="43" cy="17" rx="5" ry="11" fill="#FF7A59" />
+      <circle cx="32" cy="38" r="22" fill="#FFF8F2" stroke="#6D5DF6" strokeWidth="2.5" />
+      <circle cx="24" cy="36" r="3.2" fill="#1B1630" />
+      <circle cx="40" cy="36" r="3.2" fill="#1B1630" />
+      <ellipse cx="32" cy="42" rx="4.5" ry="3.2" fill="#FF7A59" />
+      <circle cx="18" cy="40" r="4" fill="#FFC857" opacity="0.55" />
+      <circle cx="46" cy="40" r="4" fill="#FFC857" opacity="0.55" />
+    </svg>
+  );
+}
