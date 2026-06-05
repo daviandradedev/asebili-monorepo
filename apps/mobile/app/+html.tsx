@@ -16,7 +16,9 @@ export default function Root({ children }: PropsWithChildren) {
           dangerouslySetInnerHTML={{
             __html: `
               html, body, #root {
+                width: 100%;
                 height: 100%;
+                min-height: 100dvh;
                 margin: 0;
               }
               body {
@@ -25,7 +27,23 @@ export default function Root({ children }: PropsWithChildren) {
               }
               #root {
                 display: flex;
+                flex: 1;
+                width: 100%;
+                min-height: 100dvh;
                 justify-content: center;
+              }
+              #root > div {
+                width: 100%;
+                min-height: 100dvh;
+                flex: 1;
+                display: flex;
+                justify-content: center;
+              }
+              #root [style*="width:0px"][style*="height:0px"] {
+                width: 100% !important;
+                min-height: 100dvh !important;
+                height: auto !important;
+                flex: 1 !important;
               }
               input,
               textarea {

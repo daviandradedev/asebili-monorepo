@@ -4,9 +4,10 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { enableScreens } from "react-native-screens";
 import { AppFrame } from "../src/components/app-frame";
 import { VLibrasWidget } from "../src/components/vlibras-widget";
 import {
@@ -15,7 +16,16 @@ import {
 } from "../src/contexts/preferences-context";
 import { lightColors } from "../src/theme";
 
+if (Platform.OS === "web") {
+  enableScreens(false);
+}
+
 SplashScreen.preventAutoHideAsync().catch(() => {});
+
+const stackScreenOptions = {
+  headerShown: false,
+  contentStyle: { flex: 1, width: "100%" as const },
+};
 
 function RootStack() {
   const { theme } = usePreferences();
@@ -23,7 +33,7 @@ function RootStack() {
   return (
     <>
       <StatusBar style={theme === "dark" ? "light" : "dark"} />
-      <Stack screenOptions={{ headerShown: false }} />
+      <Stack screenOptions={stackScreenOptions} />
     </>
   );
 }
@@ -43,7 +53,7 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={styles.root}>
-      <SafeAreaProvider>
+      <SafeAreaProvider style={styles.root}>
         <AppFrame>
           <PreferencesProvider>
             <RootStack />
@@ -58,6 +68,8 @@ export default function RootLayout() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
+    width: "100%",
+    minHeight: "100%",
   },
   boot: {
     flex: 1,

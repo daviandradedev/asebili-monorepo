@@ -99,7 +99,7 @@ pnpm --filter mobile web       # student UI in the browser
 `apps/mobile/.env`:
 
 ```bash
-EXPO_PUBLIC_API_URL="http://YOUR_IP:3000"
+EXPO_PUBLIC_API_URL="http://127.0.0.1:3000"
 ```
 
 Deploy and env vars: [docs/deploy.md](docs/deploy.md)

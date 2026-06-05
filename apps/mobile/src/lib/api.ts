@@ -36,16 +36,20 @@ export function resolveApiBaseUrl() {
     return fromEnv.replace(/\/$/, "");
   }
 
-  const devHost = readDevHost();
-  if (devHost && devHost !== "localhost") {
-    return `http://${devHost}:3000`;
+  if (__DEV__) {
+    const devHost = readDevHost();
+    if (devHost && devHost !== "localhost") {
+      return `http://${devHost}:3000`;
+    }
+
+    if (Platform.OS === "android") {
+      return "http://10.0.2.2:3000";
+    }
+
+    return "http://127.0.0.1:3000";
   }
 
-  if (Platform.OS === "android") {
-    return "http://10.0.2.2:3000";
-  }
-
-  return "http://127.0.0.1:3000";
+  return "";
 }
 
 export const apiBaseUrl = resolveApiBaseUrl();
@@ -63,8 +67,11 @@ async function apiFetch<T>(path: string, init?: RequestInit) {
       },
     });
   } catch {
+    const hint = apiBaseUrl
+      ? `Sem conexão com o servidor (${apiBaseUrl}).`
+      : "EXPO_PUBLIC_API_URL não está configurada.";
     throw new Error(
-      `Sem conexão com o servidor (${apiBaseUrl}). Confira se o web está em execução (pnpm --filter web dev) e, no iPhone físico, defina EXPO_PUBLIC_API_URL com o IP do Mac.`,
+      `${hint} Em produção, defina EXPO_PUBLIC_API_URL com a URL do projeto web na Vercel.`,
     );
   }
 
