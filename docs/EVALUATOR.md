@@ -1,4 +1,6 @@
-# Evaluator script (5 minutes)
+# Review walkthrough
+
+Extended guide for trying the live demo. Start with [README.md](../README.md) for the overview.
 
 ## What this software does
 
@@ -6,38 +8,42 @@
 - **Audience:** deaf people who communicate in **LIBRAS**.
 - **LIBRAS:** instruction video only — not the subject being assessed.
 
-## Before you open
+## Two apps, one flow
 
-1. Web deploy with database configured (Neon + `pnpm db:migrate` once).
-2. `NEXT_PUBLIC_STUDENT_APP_URL` on the **web** project pointing to the student simulator (`apps/mobile`).
+| App | What you do there |
+| --- | ----------------- |
+| Instructor dashboard | Sign up, inspect classes/activities, read the leaderboard |
+| Student simulator | Enter name + class code, complete a visual quiz |
+
+Use your **own** instructor account. Demo classes, activities, and sample leaderboard entries appear on first dashboard visit.
 
 ## Step by step
 
-| # | Where | Action |
-| - | ----- | ------ |
-| 1 | Web `/login` | Create an instructor account (or sign in). |
-| 2 | Dashboard | Check auto-seeded data: **2 classes**, **4 activities**, **7 submissions** on the leaderboard. |
-| 3 | Dashboard hero | **Open student simulator** → copy **Grade 3A — Morning** class code. |
-| 4 | Simulator | Paste code → choose **Colors in Portuguese** (quiz). |
-| 5 | Quiz | Instruction video → pick written Portuguese words (visual cards) → review → submit. |
-| 6 | Dashboard | Leaderboard updates; note **Mobile-ready** vs **Dashboard only** badges. |
+| Step | Where | Action |
+| ---- | ----- | ------ |
+| 1 | Instructor web `/login` | Sign up (new account). |
+| 2 | Dashboard | Check **2 classes**, **4 activities**, sample leaderboard. |
+| 3 | Dashboard | Open student simulator → copy **Grade 3A — Morning** class code. |
+| 4 | Student simulator | Name + code → **Colors in Portuguese**. |
+| 5 | Quiz | Instruction video → Portuguese word cards → submit. |
+| 6 | Dashboard | Leaderboard shows your name, score, and time. |
 
-## Seeded content (new account)
+## Seeded content
 
 | Class | Activities | Student simulator? |
 | ----- | ---------- | ------------------ |
-| Grade 3A — Morning | Colors in Portuguese (quiz), Animals: Portuguese words (memory) | Quiz only |
+| Grade 3A — Morning | Colors in Portuguese (quiz), Animals (memory) | Quiz only |
 | Grade 3B — Afternoon | Numbers 1 to 5 (matching), My family (quiz) | My family quiz only |
 
-Quiz cards still show **Portuguese words** (vermelho, mãe, etc.) — that is the learning target.
+## Demo limits
 
-## Honest demo limits
+- Memory and matching are dashboard-only.
+- Sample instruction videos; production would use teacher recordings.
+- VLibras works in the browser deploys, not in Expo Go native.
+- Each reviewer gets a unique class code; demo pattern is the same.
 
-- Memory and matching are dashboard-only (not in the student app yet).
-- Instruction videos are sample clips; production would use teacher recordings.
-- Run `pnpm db:sync-visual-quizzes` to refresh English demo titles on an existing database.
+## Related docs
 
-## Links
-
-- [PRODUCT.md](./PRODUCT.md) — pedagogical positioning
-- [README.md](../README.md) — Vercel deploy (web + simulator)
+- [PRODUCT.md](./PRODUCT.md) — what the product teaches and does not teach
+- [DEMO-DATA.md](./DEMO-DATA.md) — what auto-seeds on a new account
+- [accessibility-report.md](./accessibility-report.md) — accessibility baseline

@@ -4,101 +4,80 @@ Demo EdTech platform that teaches **written Portuguese** to **deaf students who 
 
 LIBRAS is the **instruction language** (videos and visual support so learners understand the task). The app does **not** teach LIBRAS and does **not** quiz students on signs — only on **Portuguese literacy** (words, colors, vocabulary) with minimal text and strong visuals.
 
-See [docs/PRODUCT.md](docs/PRODUCT.md) for the full product positioning.
+See [docs/PRODUCT.md](docs/PRODUCT.md) for pedagogical positioning.
 
-Built as a portfolio project: instructor dashboard → student responds → evidence on the leaderboard.
+---
 
-## Demo On Vercel (recommended)
+## How to review this demo (~5 minutes)
 
-Deploy **two** Vercel projects from this monorepo. Reviewers can test everything in the browser — no phone or local database setup required on their side.
+You only need a **browser** and **two public URLs** (instructor dashboard + student simulator).
+
+| App | URL | Your role |
+| --- | ------------- | --------- |
+| **Instructor dashboard** | `https://asebili-instructor-dd.vercel.app/` | Sign up, manage classes, read the leaderboard |
+| **Student simulator** | `https://asebili-student-dd.vercel.app/` | Enter name + class code, complete a quiz |
+
+Create **your own** instructor account — demo data seeds automatically on first dashboard visit. Your class code will differ from other reviewers; the demo content pattern is the same.
+
+### Step by step
+
+| Step | Where | What to do |
+| ---- | ----- | ---------- |
+| 1 | Instructor web → `/login` | **Sign up** with your email (new instructor account). |
+| 2 | Dashboard | Confirm auto-seeded data: **2 classes**, **4 activities**, sample **leaderboard** entries. |
+| 3 | Dashboard | Click **Open student simulator** (or open the student URL). Copy the class code for **Grade 3A — Morning**. |
+| 4 | Student simulator | Enter your **name** and the **class code** → open **Colors in Portuguese**. |
+| 5 | Quiz | Watch the instruction video → pick written Portuguese words on visual cards → review → submit. |
+| 6 | Dashboard | Refresh the leaderboard — your submission should show your **name**, score, and response time. |
+
+### Seeded content (new account)
+
+| Class | Activities | Available in student simulator? |
+| ----- | ---------- | ------------------------------- |
+| Grade 3A — Morning | Colors in Portuguese (quiz), Animals: Portuguese words (memory) | Quiz only |
+| Grade 3B — Afternoon | Numbers 1 to 5 (matching), My family (quiz) | My family quiz only |
+
+Quiz cards show **Portuguese words** (e.g. *vermelho*, *mãe*) — that is what is being taught.
+
+Dashboard badges: **Mobile-ready** = open in the simulator; **Dashboard only** = instructor preview, not in the simulator yet.
+
+### What you do not need
+
+- A shared instructor login or someone else’s class code.
+- `pnpm`, Docker, or a local database.
+- A native mobile app (the student experience is a **web SPA**).
+
+### Demo limits
+
+- Memory and matching activities are dashboard-only for now.
+- Instruction videos are sample clips; production would use teacher-recorded LIBRAS.
+- VLibras (floating widget) works in the **browser** on both deploys, not in Expo Go native.
+
+More detail: [docs/EVALUATOR.md](docs/EVALUATOR.md) · [docs/DEMO-DATA.md](docs/DEMO-DATA.md)
+
+---
+
+## Architecture
+
+**Flow:** instructor dashboard → student responds in the simulator → evidence on the leaderboard.
+
+Two Vercel deploys from one monorepo:
 
 | Vercel project | Root directory | Role |
 | -------------- | -------------- | ---- |
-| `asebili-web` | `apps/web` | Instructor dashboard, auth, API, database |
-| `asebili-student` | `apps/mobile` | Student app as a **web SPA** (Expo export) |
+| `asebili-web` | `apps/web` | Next.js dashboard, auth, API, database |
+| `asebili-student` | `apps/mobile` | Expo Router app exported as static web |
 
-### 1. Web (instructor + API)
-
-**Root Directory:** `apps/web`
-
-Environment variables:
-
-```bash
-DATABASE_URL="postgresql://USER:PASSWORD@HOST-pooler.neon.tech/DB?sslmode=require"
-DATABASE_POOL_MAX="5"
-BETTER_AUTH_SECRET="stable-production-secret"
-BETTER_AUTH_URL="https://your-asebili-web.vercel.app"
-BETTER_AUTH_TRUSTED_ORIGINS="https://your-asebili-web.vercel.app,https://your-asebili-student.vercel.app"
-```
-
-`apps/web/vercel.json` already sets the monorepo install command. Default Next.js build applies.
-
-Use a hosted PostgreSQL URL (e.g. Neon). Run migrations once against that database before sharing the link — see [Database (optional)](#database-optional) below.
-
-### 2. Student app (mobile → web)
-
-**Root Directory:** `apps/mobile`
-
-Environment variable (baked in at build time):
-
-```bash
-EXPO_PUBLIC_API_URL="https://your-asebili-web.vercel.app"
-```
-
-`apps/mobile/vercel.json` exports the Expo Router app as static web (`dist/`) with SPA rewrites.
-
-After deploy you get a URL like `https://asebili-student.vercel.app`. Share that link in your demo script:
-
-> Open the **student simulator** in the browser → enter the class code → complete a visual quiz.
-
-No Expo Go or app store needed for reviewers.
-
-### Demo flow for reviewers
-
-Each evaluator creates their **own** instructor account — demo classes, activities, and leaderboard samples seed on first dashboard visit. You only share the two deploy URLs, not your login.
-
-1. Open **web** → sign up as instructor (demo data seeds automatically).
-2. Copy the **class code** from the dashboard (e.g. Grade 3A — Morning).
-3. Open **student web** → enter **name** + **class code** → complete a visual quiz.
-4. Return to **web** → check the leaderboard (student name appears on submissions).
-
-Full 5-minute script: [docs/EVALUATOR.md](docs/EVALUATOR.md).
-
-## Why two Vercel deploys?
-
-Expo Router exports natively to the web. The student UI is the same codebase as the mobile app, but compiled as a static SPA. It calls the public API on the web project (`EXPO_PUBLIC_API_URL`). CORS is enabled on `/api/public/*` so cross-origin browser requests work.
-
-This is ideal for portfolio demos: professors click a link instead of installing an app.
-
-## Local development
-
-```bash
-pnpm install
-pnpm --filter web dev          # http://localhost:3000
-pnpm --filter mobile web       # student UI in the browser
-# or: pnpm --filter mobile start  # Expo dev tools + QR for native
-```
-
-`apps/mobile/.env`:
-
-```bash
-EXPO_PUBLIC_API_URL="http://127.0.0.1:3000"
-```
-
-## React versions
-
-Web and mobile both use **React 19.2** via the root `pnpm` overrides. Shared packages (`@asebili/database`, `@asebili/i18n`) stay on one `@types/react` version across workspaces.
-
-## Apps and packages
+The student SPA calls the public API on the web project (`EXPO_PUBLIC_API_URL`). CORS is enabled on `/api/public/*`.
 
 | Workspace | Purpose |
 | --------- | ------- |
-| `apps/web` | Next.js dashboard, Better Auth, public API |
-| `apps/mobile` | Expo Router student app (native + web export) |
+| `apps/web` | Instructor dashboard, Better Auth, public API |
+| `apps/mobile` | Student app (native + web export) |
 | `packages/database` | Drizzle schema, quiz models |
-| `packages/i18n` | PT / EN strings |
+| `packages/i18n` | PT / EN UI strings |
 
-## Public API (student app)
+### Public API
 
 | Method | Route | Purpose |
 | ------ | ----- | ------- |
@@ -106,34 +85,54 @@ Web and mobile both use **React 19.2** via the root `pnpm` overrides. Shared pac
 | `GET` | `/api/public/activities/:id` | Single activity |
 | `POST` | `/api/public/activities/:id/logs` | Submit performance log |
 
-## Database (optional)
+---
 
-Only needed when you set up or reset the hosted Postgres behind Vercel — not for reviewers testing the live demo.
+## Running from source
 
 ```bash
-# apps/web/.env.local with DATABASE_URL, then:
-pnpm db:migrate               # auth schema, quiz details, student_name on logs
-pnpm db:sync-visual-quizzes   # optional: refresh visual quiz JSON on existing DB
+pnpm install
+pnpm --filter web dev          # http://localhost:3000
+pnpm --filter mobile web       # student UI in the browser
+# or: pnpm --filter mobile start  # Expo dev tools + QR (native; no VLibras)
 ```
 
-See [docs/deploy.md](docs/deploy.md) for production notes.
+`apps/mobile/.env`:
 
-## Validation
+```bash
+EXPO_PUBLIC_API_URL="http://YOUR_IP:3000"
+```
+
+Deploy and env vars: [docs/deploy.md](docs/deploy.md)
+
+Database setup (hosting only):
+
+```bash
+pnpm db:migrate
+pnpm db:sync-visual-quizzes   # optional
+```
+
+### Validation
 
 ```bash
 pnpm check-types
 pnpm lint
 pnpm --filter web build
-pnpm --filter mobile build    # Expo web export (same as Vercel student deploy)
+pnpm --filter mobile build
 ```
 
-## Product positioning
+---
+
+## Product summary
 
 | Teaches | Does not teach |
 | ------- | -------------- |
 | Written Portuguese (literacy, words) | LIBRAS |
-| Visual quizzes with Portuguese labels | Sign knowledge / “which sign means…” |
+| Visual quizzes with Portuguese labels | Sign knowledge |
 
-Details: [docs/PRODUCT.md](docs/PRODUCT.md) · Evaluator script: [docs/EVALUATOR.md](docs/EVALUATOR.md)
-
-On the **web** Vercel project, set `NEXT_PUBLIC_STUDENT_APP_URL` to the student simulator URL so the dashboard shows **Open student simulator**.
+| Doc | Contents |
+| --- | -------- |
+| [docs/PRODUCT.md](docs/PRODUCT.md) | Pedagogical positioning |
+| [docs/EVALUATOR.md](docs/EVALUATOR.md) | Extended review walkthrough |
+| [docs/DEMO-DATA.md](docs/DEMO-DATA.md) | Auto-seeded demo content |
+| [docs/deploy.md](docs/deploy.md) | Vercel deploy and env vars |
+| [docs/accessibility-report.md](docs/accessibility-report.md) | Accessibility baseline |

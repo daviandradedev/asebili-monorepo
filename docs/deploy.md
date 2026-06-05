@@ -5,16 +5,17 @@
 Two projects from one repo:
 
 1. **`apps/web`** — instructor dashboard + API + auth  
-2. **`apps/mobile`** — student experience as static web (`expo export --platform web`)
+2. **`apps/mobile`** — student simulator as static web (`expo export --platform web`)
 
 ### Web project env
 
 ```bash
-DATABASE_URL="postgresql://USER:PASSWORD@HOST-pooler.neon.tech/DB?sslmode=require"
+DATABASE_URL="postgresql://USER:PASSWORD@HOST-pooler.neon.tech/DB?sslmode=verify-full"
 DATABASE_POOL_MAX="5"
 BETTER_AUTH_SECRET="stable-production-secret"
 BETTER_AUTH_URL="https://your-asebili-web.vercel.app"
 BETTER_AUTH_TRUSTED_ORIGINS="https://your-asebili-web.vercel.app,https://your-asebili-student.vercel.app"
+NEXT_PUBLIC_STUDENT_APP_URL="https://your-asebili-student.vercel.app"
 ```
 
 Preview deployments: the app also trusts Vercel preview URLs when `VERCEL_URL` is set.
@@ -31,6 +32,13 @@ Rebuild the student project when the API URL changes (value is embedded at build
 
 Public API routes (`/api/public/*`) return `Access-Control-Allow-Origin: *` so the student SPA on a second Vercel domain can call the API from the browser.
 
+### Hosting setup
+
+1. Run `pnpm db:migrate` once against the production database.
+2. Set `NEXT_PUBLIC_STUDENT_APP_URL` on the web project (enables **Open student simulator** on the dashboard).
+3. Open both URLs in the browser and complete one quiz end-to-end.
+4. Confirm the leaderboard updates after submission.
+
 ## Database (one-time)
 
 Point `DATABASE_URL` at Neon (or any Postgres), then from your machine:
@@ -44,4 +52,4 @@ Not required for every deploy — only when creating or resetting the database.
 
 ## Native mobile (optional)
 
-For Expo Go on a phone, set `EXPO_PUBLIC_API_URL` to the deployed web URL and run `pnpm --filter mobile start`.
+For Expo Go on a phone, set `EXPO_PUBLIC_API_URL` to the deployed web URL and run `pnpm --filter mobile start`. VLibras does not run in native Expo; use the **student web** deploy for the browser review flow.

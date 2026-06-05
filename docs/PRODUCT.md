@@ -1,27 +1,27 @@
-# Asebili — posicionamento pedagógico
+# Asebili — product positioning
 
-## O que o Asebili ensina
+## What Asebili teaches
 
-**Português escrito** para pessoas surdas que se comunicam em **LIBRAS**.
+**Written Portuguese** for deaf people who communicate in **LIBRAS**.
 
-## O que o Asebili não ensina
+## What Asebili does not teach
 
-- Não ensina LIBRAS.
-- Não avalia conhecimento de sinais.
-- Não pergunta “qual é o sinal de…?”.
+- It does not teach LIBRAS.
+- It does not assess sign knowledge.
+- It does not ask “what is the sign for…?”.
 
-## Papel da LIBRAS no produto
+## Role of LIBRAS in the product
 
-LIBRAS é o **meio de acesso e instrução**: vídeos e apoio visual para o aluno **entender a tarefa** sem depender de leitura longa em português.
+LIBRAS is the **access and instruction medium**: videos and visual support so learners understand the task without relying on long Portuguese text.
 
-O que é avaliado é sempre **português escrito** (palavras, associações, vocabulário), com linguagem mínima e muito apoio visual (cor, símbolo, imagem, vídeo).
+What is assessed is always **written Portuguese** (words, associations, vocabulary), with minimal text and strong visual support (color, symbol, image, video).
 
-## Implicações para conteúdo e UI
+## Content and UI implications
 
-- Títulos de atividade: “Cores em português”, não “Cores em LIBRAS”.
-- Quizzes: vídeo/contexto → escolher **palavra escrita** ou cartão com **rótulo em português**.
-- Painel do instrutor: pode usar VLibras para quem lê português; atividades do aluno priorizam instrução acessível em LIBRAS + resposta em PT escrito.
+- Activity titles: “Colors in Portuguese”, not “Colors in LIBRAS”.
+- Quizzes: video/context → choose a **written word** or a card with a **Portuguese label**.
+- Instructor dashboard: VLibras can help users who read Portuguese; student activities prioritize accessible LIBRAS instruction + written Portuguese answers.
 
-## Roteiro do avaliador
+## Evaluator script
 
 [docs/EVALUATOR.md](./EVALUATOR.md)
