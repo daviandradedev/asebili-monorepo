@@ -14,16 +14,16 @@ You only need a **browser** and **two public URLs** (instructor dashboard + stud
 
 | App | URL | Your role |
 | --- | ------------- | --------- |
-| **Instructor dashboard** | `https://asebili-instructor-dd.vercel.app/` | Sign up, manage classes, read the leaderboard |
+| **Instructor dashboard** | `https://asebili-instructor-dd.vercel.app/` | Sign in with a daviandrade.dev account, manage classes, read the leaderboard |
 | **Student simulator** | `https://asebili-student-dd.vercel.app/` | Enter name + class code, complete a quiz |
 
-Create **your own** instructor account — demo data seeds automatically on first dashboard visit. Your class code will differ from other reviewers; the demo content pattern is the same.
+Instructors sign in with a **daviandrade.dev account** at `https://auth.daviandrade.dev`, where new reviewers create one. Demo data seeds automatically on first dashboard visit. Your class code will differ from other reviewers; the demo content pattern is the same.
 
 ### Step by step
 
 | Step | Where | What to do |
 | ---- | ----- | ---------- |
-| 1 | Instructor web → `/login` | **Sign up** with your email (new instructor account). |
+| 1 | Instructor web → `/login` | **Sign in or create an account** on the daviandrade.dev hub; you return to the dashboard. |
 | 2 | Dashboard | Confirm auto-seeded data: **2 classes**, **4 activities**, sample **leaderboard** entries. |
 | 3 | Dashboard | Click **Open student simulator** (or open the student URL). Copy the class code for **Grade 3A — Morning**. |
 | 4 | Student simulator | Enter your **name** and the **class code** → open **Colors in Portuguese**. |

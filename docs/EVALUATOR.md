@@ -12,7 +12,7 @@ Extended guide for trying the live demo. Start with [README.md](../README.md) fo
 
 | App | What you do there |
 | --- | ----------------- |
-| Instructor dashboard | Sign up, inspect classes/activities, read the leaderboard |
+| Instructor dashboard | Sign in with a daviandrade.dev account, inspect classes/activities, read the leaderboard |
 | Student simulator | Enter name + class code, complete a visual quiz |
 
 Use your **own** instructor account. Demo classes, activities, and sample leaderboard entries appear on first dashboard visit.
@@ -21,7 +21,7 @@ Use your **own** instructor account. Demo classes, activities, and sample leader
 
 | Step | Where | Action |
 | ---- | ----- | ------ |
-| 1 | Instructor web `/login` | Sign up (new account). |
+| 1 | Instructor web `/login` | Sign in or create an account on the daviandrade.dev hub. |
 | 2 | Dashboard | Check **2 classes**, **4 activities**, sample leaderboard. |
 | 3 | Dashboard | Open student simulator → copy **Grade 3A — Morning** class code. |
 | 4 | Student simulator | Name + code → **Colors in Portuguese**. |

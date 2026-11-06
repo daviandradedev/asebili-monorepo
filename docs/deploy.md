@@ -12,13 +12,15 @@ Two projects from one repo:
 ```bash
 DATABASE_URL="postgresql://USER:PASSWORD@HOST-pooler.neon.tech/DB?sslmode=verify-full"
 DATABASE_POOL_MAX="5"
-BETTER_AUTH_SECRET="stable-production-secret"
-BETTER_AUTH_URL="https://your-asebili-web.vercel.app"
-BETTER_AUTH_TRUSTED_ORIGINS="https://your-asebili-web.vercel.app,https://your-asebili-student.vercel.app"
+AUTH_DATABASE_URL="<auth hub database>"
+BETTER_AUTH_SECRET="<same secret as the auth hub>"
+BETTER_AUTH_TRUSTED_ORIGINS="https://auth.daviandrade.dev,https://your-asebili-web.vercel.app"
+NEXT_PUBLIC_APP_URL="https://your-asebili-web.vercel.app"
+NEXT_PUBLIC_AUTH_URL="https://auth.daviandrade.dev"
 NEXT_PUBLIC_STUDENT_APP_URL="https://your-asebili-student.vercel.app"
 ```
 
-Preview deployments: the app also trusts Vercel preview URLs when `VERCEL_URL` is set.
+Instructor sign-in goes through the daviandrade.dev auth hub. Sessions live in the hub database (`AUTH_DATABASE_URL`); classes, activities, and logs stay in `DATABASE_URL`. Run `pnpm db:migrate` once after this change: it moves existing classes and activities from the old instructor ids to each instructor's email, which is the hub user id.
 
 ### Student web project env
 
