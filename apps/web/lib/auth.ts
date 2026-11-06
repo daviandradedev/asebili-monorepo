@@ -1,47 +1,44 @@
 import { betterAuth } from "better-auth";
-import { pool } from "./db";
+import { toNextJsHandler } from "better-auth/next-js";
+import { bearer, oneTimeToken } from "better-auth/plugins";
+import { Pool } from "pg";
+import { appBaseUrlForHost, authHubUrlForHost } from "./auth-public";
 
-function toHttpsOrigin(host?: string) {
-  if (!host) return undefined;
-  const trimmedHost = host.trim();
-  if (!trimmedHost) return undefined;
-  return trimmedHost.startsWith("http")
-    ? trimmedHost
-    : `https://${trimmedHost}`;
+function parseOrigins(value: string | undefined) {
+  return (value ?? "")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean);
 }
-
-function normalizeOrigin(value?: string) {
-  const candidate = toHttpsOrigin(value);
-  if (!candidate) return undefined;
-  try {
-    return new URL(candidate).origin;
-  } catch {
-    return undefined;
-  }
-}
-
-const trustedOrigins = [
-  process.env.BETTER_AUTH_URL,
-  process.env.VERCEL_URL,
-  process.env.VERCEL_BRANCH_URL,
-  process.env.VERCEL_PROJECT_PRODUCTION_URL,
-  ...(process.env.BETTER_AUTH_TRUSTED_ORIGINS?.split(",") ?? []),
-  "https://*.vercel.app",
-  "http://localhost:3000",
-  "http://127.0.0.1:3000",
-]
-  .map((origin) => normalizeOrigin(origin) ?? origin?.trim())
-  .filter((origin): origin is string => Boolean(origin));
-
-const baseURL = normalizeOrigin(process.env.BETTER_AUTH_URL);
 
 const cookieDomain = process.env.BETTER_AUTH_COOKIE_DOMAIN?.trim();
+const appUrl = appBaseUrlForHost();
+const authHubUrl = authHubUrlForHost();
 
-export const auth = betterAuth({
-  database: pool,
+const globalForAuth = globalThis as typeof globalThis & {
+  asebiliAuthPool?: Pool;
+};
+
+const authPool =
+  globalForAuth.asebiliAuthPool ??
+  new Pool({
+    connectionString: process.env.AUTH_DATABASE_URL,
+    max: 5,
+  });
+
+if (process.env.NODE_ENV !== "production") {
+  globalForAuth.asebiliAuthPool = authPool;
+}
+
+const auth = betterAuth({
+  database: authPool,
   secret: process.env.BETTER_AUTH_SECRET,
-  baseURL,
-  trustedOrigins,
+  baseURL: appUrl,
+  trustedOrigins: [
+    authHubUrl,
+    appUrl,
+    ...parseOrigins(process.env.BETTER_AUTH_TRUSTED_ORIGINS),
+  ],
   advanced: cookieDomain
     ? {
         crossSubDomainCookies: {
@@ -50,10 +47,33 @@ export const auth = betterAuth({
         },
       }
     : undefined,
+  session: {
+    expiresIn: 60 * 60 * 24 * 30,
+    updateAge: 60 * 60 * 24,
+  },
   emailAndPassword: {
     enabled: true,
-    autoSignIn: true,
-    minPasswordLength: 8,
-    maxPasswordLength: 128,
+    disableSignUp: true,
   },
+  plugins: [bearer(), oneTimeToken()],
 });
+
+export const authRouteHandlers = toNextJsHandler(auth);
+
+export function readSession(headers: Headers) {
+  return auth.api.getSession({ headers, query: { disableRefresh: true } });
+}
+
+export function issueOneTimeToken(headers: Headers) {
+  return auth.api.generateOneTimeToken({ headers });
+}
+
+export function verifyOneTimeToken(request: Request, token: string) {
+  return auth.handler(
+    new Request(new URL("/api/auth/one-time-token/verify", request.url), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token }),
+    }),
+  );
+}

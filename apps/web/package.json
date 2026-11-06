@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint --max-warnings 0",
+    "test": "vitest run",
     "check-types": "next typegen && tsc --noEmit",
     "db:ensure-schema": "node --env-file=.env.local ./scripts/ensure-db-schema.mjs",
     "db:sync-demo": "node --env-file=.env.local ./scripts/sync-demo-quizzes.mjs",
@@ -33,6 +34,7 @@
     "@types/react": "~19.1.10",
     "@types/react-dom": "~19.1.7",
     "eslint": "^9.39.1",
-    "typescript": "5.9.2"
+    "typescript": "5.9.2",
+    "vitest": "^3"
   }
 }

@@ -391,14 +391,17 @@ export default function DashboardClient({
           </div>
 
           <div className="header-actions">
-            <div className="user-pill">
+            <button
+              className="user-pill"
+              type="button"
+              onClick={() => window.location.assign("/api/auth/handoff")}
+              title={t("dashboard.openProfile")}
+            >
               <span className="user-avatar" aria-hidden="true">
                 {initials}
               </span>
-              <span title={user.name || user.email}>
-                {user.name || user.email}
-              </span>
-            </div>
+              <span>{user.name || user.email}</span>
+            </button>
             <button
               className="secondary-action"
               type="button"

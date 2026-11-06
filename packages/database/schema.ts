@@ -90,9 +90,7 @@ export const classes = asebiliSchema.table(
   "classes",
   {
     id: text("id").primaryKey(),
-    instructorId: text("instructor_id")
-      .notNull()
-      .references(() => authUsers.id, { onDelete: "cascade" }),
+    instructorId: text("instructor_id").notNull(),
     accessCode: text("access_code").notNull(),
     name: text("name").notNull(),
     createdAt: timestamp("created_at", { withTimezone: true })
@@ -112,9 +110,7 @@ export const activities = asebiliSchema.table(
   "activities",
   {
     id: text("id").primaryKey(),
-    instructorId: text("instructor_id")
-      .notNull()
-      .references(() => authUsers.id, { onDelete: "cascade" }),
+    instructorId: text("instructor_id").notNull(),
     title: text("title").notNull(),
     templateType: text("template_type").notNull(),
     librasVideoUrl: text("libras_video_url"),

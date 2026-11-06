@@ -1,9 +1,6 @@
-import { auth } from "./auth";
+import { readSession } from "./auth";
 
 export async function getCurrentUser(request: Request) {
-  const session = await auth.api.getSession({
-    headers: request.headers,
-  });
-
+  const session = await readSession(request.headers);
   return session?.user ?? null;
 }

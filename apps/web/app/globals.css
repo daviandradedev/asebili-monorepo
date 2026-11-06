@@ -1448,8 +1448,15 @@ h2 {
   border-radius: 999px;
   background: color-mix(in srgb, var(--surface) 92%, transparent);
   padding: 0.45rem 0.9rem 0.45rem 0.45rem;
+  font: inherit;
   font-weight: 700;
+  color: inherit;
+  cursor: pointer;
   max-width: min(100%, 18rem);
+}
+
+.user-pill:hover {
+  border-color: var(--accent, currentColor);
 }
 
 .user-pill span:last-child {
