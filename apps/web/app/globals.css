@@ -2668,6 +2668,36 @@ code,
   font-size: 0.8rem;
 }
 
+.guest-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(15, 15, 20, 0.55);
+}
+
+.guest-modal-panel {
+  width: min(100%, 32rem);
+  max-height: 90vh;
+  overflow: auto;
+}
+
+.guest-modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 640px) {
+  .guest-modal {
+    align-items: center;
+  }
+}
+
 @media (max-width: 900px) {
   .quiz-editor-answers-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));

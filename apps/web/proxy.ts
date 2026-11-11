@@ -1,32 +1,15 @@
-import { getSessionCookie } from "better-auth/cookies";
 import { NextResponse, type NextRequest } from "next/server";
 
 export function proxy(request: NextRequest) {
   const ott = request.nextUrl.searchParams.get("ott");
-  if (ott && !request.nextUrl.pathname.startsWith("/api/")) {
-    const bootstrap = new URL("/api/auth/bootstrap", request.url);
-    bootstrap.searchParams.set("ott", ott);
-    bootstrap.searchParams.set("next", request.nextUrl.pathname);
-    return NextResponse.redirect(bootstrap);
+  if (!ott || request.nextUrl.pathname.startsWith("/api/")) {
+    return NextResponse.next();
   }
 
-  const sessionCookie = getSessionCookie(request);
-  const isDashboardRoute = request.nextUrl.pathname.startsWith("/dashboard");
-  const isLoginRoute = request.nextUrl.pathname.startsWith("/login");
-
-  if (!sessionCookie && isDashboardRoute) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/login";
-    return NextResponse.redirect(url);
-  }
-
-  if (sessionCookie && isLoginRoute) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/dashboard";
-    return NextResponse.redirect(url);
-  }
-
-  return NextResponse.next();
+  const bootstrap = new URL("/api/auth/bootstrap", request.url);
+  bootstrap.searchParams.set("ott", ott);
+  bootstrap.searchParams.set("next", request.nextUrl.pathname);
+  return NextResponse.redirect(bootstrap);
 }
 
 export const config = {

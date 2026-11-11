@@ -29,7 +29,7 @@ import {
   validateMatchingPairs,
   validateMemoryPairs,
 } from "../../../../lib/activity-options";
-import { authClient } from "../../../../lib/auth-client";
+import { authClient, saveWasRejected } from "../../../../lib/auth-client";
 import { useLanguage } from "../../../../lib/contexts/language-context";
 import {
   DEFAULT_SAMPLE_VIDEO_URL,
@@ -157,6 +157,10 @@ function readCachedClasses() {
 }
 
 async function parseResponse<T>(response: Response, fallbackMessage: string) {
+  if (saveWasRejected(response)) {
+    throw new Error("Unauthorized");
+  }
+
   const payload = (await response.json().catch(() => ({}))) as T & ApiError;
 
   if (!response.ok) {
@@ -406,8 +410,7 @@ export default function ActivityBuilderClient({
 
   async function handleSignOut() {
     await authClient.signOut();
-    router.replace("/login");
-    router.refresh();
+    window.location.assign("/");
   }
 
   return (

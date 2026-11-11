@@ -20,10 +20,9 @@ import {
   UsersRound,
 } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useMemo, useState, type FormEvent } from "react";
 import { AppHeader } from "../../components/app-header";
-import { authClient } from "../../lib/auth-client";
+import { authClient, saveWasRejected } from "../../lib/auth-client";
 import { useLanguage } from "../../lib/contexts/language-context";
 
 type DashboardClientProps = {
@@ -90,6 +89,10 @@ function isMobileReadyActivity(activity: DashboardActivity) {
 }
 
 async function parseResponse<T>(response: Response, fallbackMessage: string) {
+  if (saveWasRejected(response)) {
+    throw new Error("Unauthorized");
+  }
+
   const payload = (await response.json().catch(() => ({}))) as T & ApiError;
 
   if (!response.ok) {
@@ -106,7 +109,6 @@ export default function DashboardClient({
   initialClasses,
   initialLogs,
 }: DashboardClientProps) {
-  const router = useRouter();
   const { t, language } = useLanguage();
   const dateLocale = language === "pt" ? "pt-BR" : "en-US";
   const [classes, setClasses] = useState<DashboardClass[]>(initialClasses);
@@ -375,8 +377,7 @@ export default function DashboardClient({
 
   async function handleSignOut() {
     await authClient.signOut();
-    router.replace("/login");
-    router.refresh();
+    window.location.assign("/");
   }
 
   return (

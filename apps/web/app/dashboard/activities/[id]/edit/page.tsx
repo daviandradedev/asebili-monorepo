@@ -1,6 +1,7 @@
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { getInstructorActivity } from "../../../../../lib/dashboard-data";
 import { getServerSession } from "../../../../../lib/session";
+import { SignInRequired } from "../../../../../components/sign-in-required";
 import ActivityBuilderClient from "../../new/activity-builder-client";
 
 type EditActivityPageProps = {
@@ -11,7 +12,7 @@ export default async function EditActivityPage({ params }: EditActivityPageProps
   const session = await getServerSession();
 
   if (!session?.user) {
-    redirect("/login");
+    return <SignInRequired />;
   }
 
   const { id } = await params;

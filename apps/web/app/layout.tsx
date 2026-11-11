@@ -3,6 +3,9 @@ import { Inter } from "next/font/google";
 import { Providers } from "../components/providers";
 import { SkipLink } from "../components/skip-link";
 import { SiteFooter } from "../components/site-footer";
+import { GuestSessionModal } from "../components/guest-session-modal";
+import { SessionKeepAlive } from "../components/session-keep-alive";
+import { getServerSession } from "../lib/session";
 import "./globals.css";
 import VLibrasWidget from "./vlibras-widget";
 
@@ -20,11 +23,14 @@ export const metadata: Metadata = {
 
 const themeInitScript = `(function(){try{var t=localStorage.getItem('theme');var d=t==='dark'||(t!=='light'&&window.matchMedia('(prefers-color-scheme: dark)').matches);var r=document.documentElement;r.classList.remove('light','dark');r.classList.add(d?'dark':'light');}catch(e){}})();`;
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getServerSession();
+  const signedIn = Boolean(session?.user);
+
   return (
     <html lang="pt-BR" className={inter.variable} suppressHydrationWarning>
       <head>
@@ -32,6 +38,7 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <Providers>
+          {signedIn ? <SessionKeepAlive /> : <GuestSessionModal />}
           <div className="app-shell">
             <SkipLink />
             {children}

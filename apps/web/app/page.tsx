@@ -1,5 +1,5 @@
-import { redirect } from "next/navigation";
+import { InstructorHome } from "../components/instructor-home";
 
 export default function Home() {
-  redirect("/login");
+  return <InstructorHome />;
 }

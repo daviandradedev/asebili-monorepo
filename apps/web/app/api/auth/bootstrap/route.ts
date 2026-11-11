@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
   const nextPath = safeNextPath(request.nextUrl.searchParams.get("next"));
 
   if (!ott) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   const verifyResponse = await verifyOneTimeToken(request, ott);

@@ -84,6 +84,16 @@ export const translations = {
       vlibrasNote:
         "VLibras ajuda no painel do instrutor. No app do aluno, use vídeos em LIBRAS só para explicar a tarefa — a resposta é sempre em português escrito.",
       hubButton: "Entrar ou criar conta",
+      openDashboard: "Abrir painel",
+      signedInBody: "Sua conta daviandrade.dev já está neste navegador. O painel é onde turmas e atividades ficam gravadas.",
+      guestEyebrow: "Sem conta",
+      guestTitle: "Veja o Asebili, cadastre com uma conta",
+      guestContinue: "Continuar sem entrar",
+      guestBody:
+        "Sem conta você conhece o instrutor e o app do aluno. Para criar turma, atividade ou ver o placar, entre ou crie uma conta no daviandrade.dev.",
+      signInRequiredTitle: "Entre para cadastrar",
+      signInRequiredBody:
+        "Turmas, atividades e o placar ficam na sua conta. Entre ou crie uma conta no daviandrade.dev para gravar.",
     },
     dashboard: {
       instructorPanel: "Painel do instrutor",
@@ -514,6 +524,16 @@ export const translations = {
       vlibrasNote:
         "VLibras helps on the instructor dashboard. In the student app, LIBRAS videos explain the task — answers are always written Portuguese.",
       hubButton: "Sign in or create an account",
+      openDashboard: "Open dashboard",
+      signedInBody: "Your daviandrade.dev account is already in this browser. The dashboard is where classes and activities are saved.",
+      guestEyebrow: "No account",
+      guestTitle: "Look around Asebili, register with an account",
+      guestContinue: "Continue without signing in",
+      guestBody:
+        "Without an account you can read how the instructor and student apps work. Sign in or create an account on daviandrade.dev to create a class, an activity, or open the leaderboard.",
+      signInRequiredTitle: "Sign in to register",
+      signInRequiredBody:
+        "Classes, activities, and the leaderboard stay on your account. Sign in or create an account on daviandrade.dev to save them.",
     },
     dashboard: {
       instructorPanel: "Instructor dashboard",

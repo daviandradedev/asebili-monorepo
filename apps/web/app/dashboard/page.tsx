@@ -1,14 +1,14 @@
-import { redirect } from "next/navigation";
 import { getDashboardData } from "../../lib/dashboard-data";
 import { provisionInstructorSampleData } from "../../lib/provision-instructor-sample";
 import { getServerSession } from "../../lib/session";
+import { SignInRequired } from "../../components/sign-in-required";
 import DashboardClient from "./dashboard-client";
 
 export default async function DashboardPage() {
   const session = await getServerSession();
 
   if (!session?.user) {
-    redirect("/login");
+    return <SignInRequired />;
   }
 
   await provisionInstructorSampleData(session.user.id);

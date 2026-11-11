@@ -1,12 +1,12 @@
-import { redirect } from "next/navigation";
 import { getServerSession } from "../../../../lib/session";
+import { SignInRequired } from "../../../../components/sign-in-required";
 import ActivityBuilderClient from "./activity-builder-client";
 
 export default async function NewActivityPage() {
   const session = await getServerSession();
 
   if (!session?.user) {
-    redirect("/login");
+    return <SignInRequired />;
   }
 
   return (
