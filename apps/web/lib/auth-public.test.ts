@@ -18,10 +18,10 @@ describe("public urls", () => {
     vi.stubEnv("NEXT_PUBLIC_APP_URL", "http://localhost:3000");
     vi.stubEnv("NEXT_PUBLIC_AUTH_URL", "http://localhost:3100");
 
-    expect(appBaseUrlForHost("asebili-instructor-dd.vercel.app")).toBe(
-      "https://asebili-instructor-dd.vercel.app",
+    expect(appBaseUrlForHost("asebili-instructor.daviandrade.dev")).toBe(
+      "https://asebili-instructor.daviandrade.dev",
     );
-    expect(authHubUrlForHost("asebili-instructor-dd.vercel.app")).toBe(
+    expect(authHubUrlForHost("asebili-instructor.daviandrade.dev")).toBe(
       "https://auth.daviandrade.dev",
     );
   });
@@ -41,6 +41,6 @@ describe("public urls", () => {
     vi.stubEnv("VERCEL_ENV", "production");
     vi.stubEnv("VERCEL_PROJECT_PRODUCTION_URL", "");
 
-    expect(appBaseUrlForHost(null)).toBe("https://asebili-instructor-dd.vercel.app");
+    expect(appBaseUrlForHost(null)).toBe("https://asebili-instructor.daviandrade.dev");
   });
 });

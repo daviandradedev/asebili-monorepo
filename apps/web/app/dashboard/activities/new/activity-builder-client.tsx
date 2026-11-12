@@ -36,6 +36,7 @@ import {
   SAMPLE_LIBRAS_VIDEOS,
 } from "../../../../lib/sample-videos";
 import { AppHeader } from "../../../../components/app-header";
+import { ProfileAvatar } from "../../../../components/profile-avatar";
 import { LibrasVideoField } from "../../../../components/libras-video-field";
 import { MatchingPairsEditor } from "../../../../components/matching-pairs-editor";
 import { MemoryPairsEditor } from "../../../../components/memory-pairs-editor";
@@ -46,6 +47,7 @@ type ActivityBuilderClientProps = {
     id: string;
     name: string;
     email: string;
+    image?: string | null;
   };
   initialClasses: DashboardClass[];
   initialActivity?: DashboardActivity;
@@ -129,15 +131,6 @@ function templateBadgeClass(templateType: string) {
   return "badge badge--default";
 }
 
-function userInitials(name: string, email: string) {
-  const source = name.trim() || email.trim();
-  const parts = source.split(/\s+/).filter(Boolean);
-  if (parts.length >= 2) {
-    return `${parts[0]?.[0] ?? ""}${parts[1]?.[0] ?? ""}`.toUpperCase();
-  }
-  return source.slice(0, 2).toUpperCase();
-}
-
 function starterVideoUrl(key: StarterKey) {
   return (
     SAMPLE_LIBRAS_VIDEOS.find((video) => video.id === STARTER_VIDEO_IDS[key])
@@ -207,8 +200,6 @@ export default function ActivityBuilderClient({
   const [publishingActivity, setPublishingActivity] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
-  const initials = userInitials(user.name, user.email);
 
   useEffect(() => {
     const cachedClasses = readCachedClasses();
@@ -436,14 +427,17 @@ export default function ActivityBuilderClient({
             <Link className="secondary-action" href="/dashboard">
               {t("dashboard.backToDashboard")}
             </Link>
-            <div className="user-pill">
-              <span className="user-avatar" aria-hidden="true">
-                {initials}
-              </span>
+            <button
+              className="user-pill"
+              type="button"
+              onClick={() => window.location.assign("/api/auth/handoff")}
+              title={t("dashboard.openProfile")}
+            >
+              <ProfileAvatar name={user.name} email={user.email} image={user.image} />
               <span title={user.name || user.email}>
                 {user.name || user.email}
               </span>
-            </div>
+            </button>
             <button
               className="secondary-action"
               type="button"

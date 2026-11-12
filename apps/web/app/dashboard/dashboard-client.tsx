@@ -22,6 +22,7 @@ import {
 import Link from "next/link";
 import { useMemo, useState, type FormEvent } from "react";
 import { AppHeader } from "../../components/app-header";
+import { ProfileAvatar } from "../../components/profile-avatar";
 import { authClient, saveWasRejected } from "../../lib/auth-client";
 import { useLanguage } from "../../lib/contexts/language-context";
 
@@ -30,6 +31,7 @@ type DashboardClientProps = {
     id: string;
     name: string;
     email: string;
+    image?: string | null;
   };
   studentAppUrl?: string;
   initialActivities: DashboardActivity[];
@@ -70,15 +72,6 @@ function templateBadgeClass(templateType: string) {
     return `badge badge--${templateType}`;
   }
   return "badge badge--default";
-}
-
-function userInitials(name: string, email: string) {
-  const source = name.trim() || email.trim();
-  const parts = source.split(/\s+/).filter(Boolean);
-  if (parts.length >= 2) {
-    return `${parts[0]?.[0] ?? ""}${parts[1]?.[0] ?? ""}`.toUpperCase();
-  }
-  return source.slice(0, 2).toUpperCase();
 }
 
 function isMobileReadyActivity(activity: DashboardActivity) {
@@ -154,8 +147,6 @@ export default function DashboardClient({
 
     return Math.round(scoreTotal / scoredLogs.length);
   }, [logs]);
-
-  const initials = userInitials(user.name, user.email);
 
   function templateLabel(template: string) {
     const key = `dashboard.templates.${template}`;
@@ -398,9 +389,7 @@ export default function DashboardClient({
               onClick={() => window.location.assign("/api/auth/handoff")}
               title={t("dashboard.openProfile")}
             >
-              <span className="user-avatar" aria-hidden="true">
-                {initials}
-              </span>
+              <ProfileAvatar name={user.name} email={user.email} image={user.image} />
               <span>{user.name || user.email}</span>
             </button>
             <button

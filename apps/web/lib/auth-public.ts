@@ -1,6 +1,6 @@
 const LOCAL_APP_URL = "http://localhost:3000";
 const LOCAL_HUB_URL = "http://localhost:3100";
-const PRODUCTION_APP_URL = "https://asebili-instructor-dd.vercel.app";
+const PRODUCTION_APP_URL = "https://asebili-instructor.daviandrade.dev";
 const PRODUCTION_HUB_URL = "https://auth.daviandrade.dev";
 
 function configured(value: string | undefined) {

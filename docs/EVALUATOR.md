@@ -21,7 +21,7 @@ Use your **own** instructor account. Demo classes, activities, and sample leader
 
 | Step | Where | Action |
 | ---- | ----- | ------ |
-| 1 | Instructor web `/login` | Sign in or create an account on the daviandrade.dev hub. |
+| 1 | Instructor home | Sign in or create an account on the daviandrade.dev hub. |
 | 2 | Dashboard | Check **2 classes**, **4 activities**, sample leaderboard. |
 | 3 | Dashboard | Open student simulator → copy **Grade 3A — Morning** class code. |
 | 4 | Student simulator | Name + code → **Colors in Portuguese**. |

@@ -7,7 +7,7 @@ export function hubAccountHandoffUrl(hub: string, token: string) {
 
 export function safeNextPath(raw: string | null | undefined) {
   if (!raw || !raw.startsWith("/") || raw.startsWith("//") || raw.startsWith("/\\")) {
-    return "/dashboard";
+    return "/";
   }
   return raw;
 }

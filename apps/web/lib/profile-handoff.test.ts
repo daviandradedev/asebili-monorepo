@@ -14,9 +14,9 @@ describe("profile handoff", () => {
 
   it("only returns to local paths after sign-in", () => {
     expect(safeNextPath("/dashboard/activities/new")).toBe("/dashboard/activities/new");
-    expect(safeNextPath(null)).toBe("/dashboard");
-    expect(safeNextPath("https://evil.example")).toBe("/dashboard");
-    expect(safeNextPath("//evil.example")).toBe("/dashboard");
+    expect(safeNextPath(null)).toBe("/");
+    expect(safeNextPath("https://evil.example")).toBe("/");
+    expect(safeNextPath("//evil.example")).toBe("/");
   });
 });
 

@@ -14,8 +14,8 @@ DATABASE_URL="postgresql://USER:PASSWORD@HOST-pooler.neon.tech/DB?sslmode=verify
 DATABASE_POOL_MAX="5"
 AUTH_DATABASE_URL="<auth hub database>"
 BETTER_AUTH_SECRET="<same secret as the auth hub>"
-BETTER_AUTH_TRUSTED_ORIGINS="https://auth.daviandrade.dev,https://your-asebili-web.vercel.app"
-NEXT_PUBLIC_APP_URL="https://your-asebili-web.vercel.app"
+BETTER_AUTH_TRUSTED_ORIGINS="https://auth.daviandrade.dev,https://asebili-instructor.daviandrade.dev"
+NEXT_PUBLIC_APP_URL="https://asebili-instructor.daviandrade.dev"
 NEXT_PUBLIC_AUTH_URL="https://auth.daviandrade.dev"
 NEXT_PUBLIC_STUDENT_APP_URL="https://your-asebili-student.vercel.app"
 ```
