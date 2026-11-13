@@ -23,7 +23,7 @@ import Link from "next/link";
 import { useMemo, useState, type FormEvent } from "react";
 import { AppHeader } from "../../components/app-header";
 import { ProfileAvatar } from "../../components/profile-avatar";
-import { authClient, saveWasRejected } from "../../lib/auth-client";
+import { authClient, redirectToAuthAccount, saveWasRejected } from "../../lib/auth-client";
 import { useLanguage } from "../../lib/contexts/language-context";
 
 type DashboardClientProps = {
@@ -386,7 +386,7 @@ export default function DashboardClient({
             <button
               className="user-pill"
               type="button"
-              onClick={() => window.location.assign("/api/auth/handoff")}
+              onClick={redirectToAuthAccount}
               title={t("dashboard.openProfile")}
             >
               <ProfileAvatar name={user.name} email={user.email} image={user.image} />

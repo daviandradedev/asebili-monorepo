@@ -29,7 +29,7 @@ import {
   validateMatchingPairs,
   validateMemoryPairs,
 } from "../../../../lib/activity-options";
-import { authClient, saveWasRejected } from "../../../../lib/auth-client";
+import { authClient, redirectToAuthAccount, saveWasRejected } from "../../../../lib/auth-client";
 import { useLanguage } from "../../../../lib/contexts/language-context";
 import {
   DEFAULT_SAMPLE_VIDEO_URL,
@@ -430,7 +430,7 @@ export default function ActivityBuilderClient({
             <button
               className="user-pill"
               type="button"
-              onClick={() => window.location.assign("/api/auth/handoff")}
+              onClick={redirectToAuthAccount}
               title={t("dashboard.openProfile")}
             >
               <ProfileAvatar name={user.name} email={user.email} image={user.image} />

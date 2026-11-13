@@ -9,6 +9,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { enableScreens } from "react-native-screens";
 import { AppFrame } from "../src/components/app-frame";
+import { WebShell } from "../src/components/web-shell";
 import { VLibrasWidget } from "../src/components/vlibras-widget";
 import {
   PreferencesProvider,
@@ -54,11 +55,13 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={styles.root}>
       <SafeAreaProvider style={styles.root}>
-        <AppFrame>
-          <PreferencesProvider>
-            <RootStack />
-          </PreferencesProvider>
-        </AppFrame>
+        <PreferencesProvider>
+          <WebShell>
+            <AppFrame>
+              <RootStack />
+            </AppFrame>
+          </WebShell>
+        </PreferencesProvider>
       </SafeAreaProvider>
       <VLibrasWidget />
     </GestureHandlerRootView>

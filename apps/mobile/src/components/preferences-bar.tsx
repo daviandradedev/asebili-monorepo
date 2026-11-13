@@ -1,6 +1,6 @@
 import { Feather } from "@expo/vector-icons";
 import type { ReactNode } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
 import { usePreferences } from "../contexts/preferences-context";
 import { layout } from "../layout";
 import type { ThemeColors } from "../theme";
@@ -58,14 +58,15 @@ function PreferenceToggle({
   );
 }
 
-export function PreferencesBar() {
+export function PreferencesBar({ embedded = false }: { embedded?: boolean }) {
   const { language, setLanguage, theme, toggleTheme, colors, t } =
     usePreferences();
+  if (Platform.OS === "web" && !embedded) return null;
   const isPortuguese = language === "pt";
   const isDark = theme === "dark";
 
   return (
-    <View style={styles.bar}>
+    <View style={[styles.bar, embedded && styles.barEmbedded]}>
       <PreferenceToggle
         accessibilityLabel={t("preferences.language")}
         checked={isPortuguese}
@@ -116,6 +117,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: layout.pagePadding,
     paddingTop: 8,
     width: "100%",
+  },
+  barEmbedded: {
+    zIndex: 1,
+    width: "auto",
+    minHeight: TOGGLE_HEIGHT,
+    paddingHorizontal: 0,
+    paddingTop: 0,
+    paddingBottom: 0,
   },
   toggle: {
     width: TOGGLE_WIDTH,

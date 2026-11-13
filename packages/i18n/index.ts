@@ -36,6 +36,9 @@ export const translations = {
     appHeader: {
       label: "Cabeçalho do painel",
     },
+    redirect: {
+      openingAccount: "Abrindo sua conta",
+    },
     guide: {
       eyebrow: "Instruções",
       title: "Como usar o Asebili",
@@ -447,6 +450,10 @@ export const translations = {
       backToMission: "Voltar à missão",
       quizUnavailable:
         "Este quiz ainda não tem perguntas configuradas. Peça ao instrutor para atualizar a atividade.",
+      backToAuth: "Conta",
+      backToAuthA11y: "Voltar para a conta daviandrade.dev",
+      footerCredit: "Crafted with 🥤 and code by Davi Andrade © {year}",
+      footerSocial: "Redes sociais",
     },
   },
   en: {
@@ -475,6 +482,9 @@ export const translations = {
     },
     appHeader: {
       label: "App header",
+    },
+    redirect: {
+      openingAccount: "Opening your account",
     },
     guide: {
       eyebrow: "Instructions",
@@ -883,6 +893,10 @@ export const translations = {
       backToMission: "Back to mission",
       quizUnavailable:
         "This quiz has no questions yet. Ask your instructor to update the activity.",
+      backToAuth: "Account",
+      backToAuthA11y: "Return to your daviandrade.dev account",
+      footerCredit: "Crafted with 🥤 and code by Davi Andrade © {year}",
+      footerSocial: "Social links",
     },
   },
 } as const;

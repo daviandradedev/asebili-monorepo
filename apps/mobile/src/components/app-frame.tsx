@@ -1,30 +1,54 @@
 import type { ReactNode } from "react";
-import { Platform, StyleSheet, View } from "react-native";
-
-const PHONE_MAX_WIDTH = 430;
+import { Platform, StyleSheet, useWindowDimensions, View } from "react-native";
+import { usePreferences } from "../contexts/preferences-context";
+import { layout, phoneFrameSize } from "../layout";
 
 type AppFrameProps = {
   children: ReactNode;
 };
 
 export function AppFrame({ children }: AppFrameProps) {
-  if (Platform.OS !== "web") {
-    return <>{children}</>;
-  }
+  const { height, width } = useWindowDimensions();
+  const { colors } = usePreferences();
 
-  return <View style={styles.frame}>{children}</View>;
+  if (Platform.OS !== "web") return <>{children}</>;
+
+  const device = width >= layout.webChromeBreakpoint;
+  const size = device ? phoneFrameSize(width, height) : null;
+
+  return (
+    <View
+      style={[
+        device ? styles.device : styles.fill,
+        size,
+        {
+          backgroundColor: colors.bg,
+          borderColor: colors.border,
+        },
+      ]}
+    >
+      {children}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-  frame: {
-    flex: 1,
-    width: "100%",
-    maxWidth: PHONE_MAX_WIDTH,
-    minHeight: "100%",
+  device: {
+    flexGrow: 0,
+    flexShrink: 0,
     alignSelf: "center",
-    borderColor: "rgba(15, 23, 42, 0.12)",
-    borderRadius: 24,
+    borderRadius: 28,
     borderWidth: 1,
     overflow: "hidden",
+    shadowColor: "#1B1630",
+    shadowOffset: { width: 0, height: 12 },
+    shadowOpacity: 0.12,
+    shadowRadius: 24,
+  },
+  fill: {
+    flex: 1,
+    width: "100%",
+    minHeight: 0,
+    alignSelf: "stretch",
   },
 });

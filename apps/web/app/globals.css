@@ -2716,3 +2716,47 @@ code,
     grid-template-columns: 1fr;
   }
 }
+
+.redirect-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.redirect-spinner {
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: redirect-spin 0.7s linear infinite;
+}
+
+.redirect-title {
+  margin: 0;
+  max-width: 24rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+@keyframes redirect-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .redirect-spinner {
+    animation: none;
+  }
+}
