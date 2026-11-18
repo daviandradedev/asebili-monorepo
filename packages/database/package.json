@@ -1,0 +1,31 @@
+{
+  "name": "@asebili/database",
+  "version": "0.0.0",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "exports": {
+    ".": {
+      "types": "./index.ts",
+      "default": "./index.ts"
+    },
+    "./schema": {
+      "types": "./schema.ts",
+      "default": "./schema.ts"
+    },
+    "./quiz": {
+      "types": "./quiz.ts",
+      "default": "./quiz.ts"
+    },
+    "./libras-visual": {
+      "types": "./libras-visual.ts",
+      "default": "./libras-visual.ts"
+    },
+    "./types": {
+      "types": "./types.ts",
+      "default": "./types.ts"
+    }
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.45.2"
+  }
+}
