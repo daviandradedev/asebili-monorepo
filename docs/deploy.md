@@ -1,0 +1,57 @@
+# Deploy
+
+## Vercel (demo)
+
+Two projects from one repo:
+
+1. **`apps/web`** — instructor dashboard + API + auth  
+2. **`apps/mobile`** — student simulator as static web (`expo export --platform web`)
+
+### Web project env
+
+```bash
+DATABASE_URL="postgresql://USER:PASSWORD@HOST-pooler.neon.tech/DB?sslmode=verify-full"
+DATABASE_POOL_MAX="5"
+AUTH_DATABASE_URL="<auth hub database>"
+BETTER_AUTH_SECRET="<same secret as the auth hub>"
+BETTER_AUTH_TRUSTED_ORIGINS="https://auth.daviandrade.dev,https://asebili-instructor.daviandrade.dev"
+NEXT_PUBLIC_APP_URL="https://asebili-instructor.daviandrade.dev"
+NEXT_PUBLIC_AUTH_URL="https://auth.daviandrade.dev"
+NEXT_PUBLIC_STUDENT_APP_URL="https://your-asebili-student.vercel.app"
+```
+
+Instructor sign-in goes through the daviandrade.dev auth hub. Sessions live in the hub database (`AUTH_DATABASE_URL`); classes, activities, and logs stay in `DATABASE_URL`. Run `pnpm db:migrate` once after this change: it moves existing classes and activities from the old instructor ids to each instructor's email, which is the hub user id.
+
+### Student web project env
+
+```bash
+EXPO_PUBLIC_API_URL="https://your-asebili-web.vercel.app"
+```
+
+Rebuild the student project when the API URL changes (value is embedded at build time).
+
+### CORS
+
+Public API routes (`/api/public/*`) return `Access-Control-Allow-Origin: *` so the student SPA on a second Vercel domain can call the API from the browser.
+
+### Hosting setup
+
+1. Run `pnpm db:migrate` once against the production database.
+2. Set `NEXT_PUBLIC_STUDENT_APP_URL` on the web project (enables **Open student simulator** on the dashboard).
+3. Open both URLs in the browser and complete one quiz end-to-end.
+4. Confirm the leaderboard updates after submission.
+
+## Database (one-time)
+
+Point `DATABASE_URL` at Neon (or any Postgres), then from your machine:
+
+```bash
+pnpm db:migrate
+pnpm db:sync-visual-quizzes
+```
+
+Not required for every deploy — only when creating or resetting the database.
+
+## Native mobile (optional)
+
+For Expo Go on a phone, set `EXPO_PUBLIC_API_URL` to the deployed web URL and run `pnpm --filter mobile start`. VLibras does not run in native Expo; use the **student web** deploy for the browser review flow.
