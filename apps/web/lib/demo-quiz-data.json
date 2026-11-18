@@ -1,0 +1,154 @@
+{
+  "demo-act-colors": {
+    "questions": [
+      {
+        "id": "cores-q1",
+        "promptMode": "sign-pick",
+        "promptColor": "#E53935",
+        "promptVideoUrl": "https://assets.mixkit.co/videos/40213/40213-360.mp4",
+        "promptImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Tomate.JPG/480px-Tomate.JPG",
+        "options": [
+          { "id": "a", "label": "vermelho" },
+          { "id": "b", "label": "azul" },
+          { "id": "c", "label": "amarelo" },
+          { "id": "d", "label": "verde" }
+        ],
+        "correctOptionId": "a"
+      },
+      {
+        "id": "cores-q2",
+        "promptMode": "sign-pick",
+        "promptColor": "#1E88E5",
+        "promptVideoUrl": "https://assets.mixkit.co/videos/45602/45602-360.mp4",
+        "promptImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Blue_sky_with_clouds%2C_Cumulus.jpg/480px-Blue_sky_with_clouds%2C_Cumulus.jpg",
+        "options": [
+          { "id": "a", "label": "amarelo" },
+          { "id": "b", "label": "azul" },
+          { "id": "c", "label": "vermelho" },
+          { "id": "d", "label": "roxo" }
+        ],
+        "correctOptionId": "b"
+      },
+      {
+        "id": "cores-q3",
+        "promptMode": "sign-pick",
+        "promptColor": "#43A047",
+        "promptVideoUrl": "https://assets.mixkit.co/videos/2277/2277-360.mp4",
+        "promptImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Leaf_1_web.jpg/480px-Leaf_1_web.jpg",
+        "options": [
+          { "id": "a", "label": "verde" },
+          { "id": "b", "label": "azul" },
+          { "id": "c", "label": "amarelo" },
+          { "id": "d", "label": "roxo" }
+        ],
+        "correctOptionId": "a"
+      }
+    ]
+  },
+  "demo-act-family": {
+    "questions": [
+      {
+        "id": "familia-q1",
+        "promptMode": "sign-pick",
+        "promptSymbol": "👩",
+        "promptVideoUrl": "https://assets.mixkit.co/videos/4550/4550-360.mp4",
+        "promptImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Mother_Daughter_Portrait.jpg/480px-Mother_Daughter_Portrait.jpg",
+        "options": [
+          {
+            "id": "a",
+            "label": "mãe",
+            "symbol": "👩",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Mother_Daughter_Portrait.jpg/480px-Mother_Daughter_Portrait.jpg"
+          },
+          {
+            "id": "b",
+            "label": "pai",
+            "symbol": "👨",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Father_and_son.jpg/480px-Father_and_son.jpg"
+          },
+          {
+            "id": "c",
+            "label": "irmã",
+            "symbol": "👧",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Sisters.jpg/480px-Sisters.jpg"
+          },
+          {
+            "id": "d",
+            "label": "irmão",
+            "symbol": "👦",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Brothers_playing.jpg/480px-Brothers_playing.jpg"
+          }
+        ],
+        "correctOptionId": "a"
+      },
+      {
+        "id": "familia-q2",
+        "promptMode": "sign-pick",
+        "promptSymbol": "👨",
+        "promptVideoUrl": "https://assets.mixkit.co/videos/4571/4571-360.mp4",
+        "promptImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Father_and_son.jpg/480px-Father_and_son.jpg",
+        "options": [
+          {
+            "id": "a",
+            "label": "irmão",
+            "symbol": "👦",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Brothers_playing.jpg/480px-Brothers_playing.jpg"
+          },
+          {
+            "id": "b",
+            "label": "pai",
+            "symbol": "👨",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Father_and_son.jpg/480px-Father_and_son.jpg"
+          },
+          {
+            "id": "c",
+            "label": "mãe",
+            "symbol": "👩",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Mother_Daughter_Portrait.jpg/480px-Mother_Daughter_Portrait.jpg"
+          },
+          {
+            "id": "d",
+            "label": "irmã",
+            "symbol": "👧",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Sisters.jpg/480px-Sisters.jpg"
+          }
+        ],
+        "correctOptionId": "b"
+      },
+      {
+        "id": "familia-q3",
+        "promptMode": "sign-pick",
+        "promptSymbol": "👦",
+        "promptVideoUrl": "https://assets.mixkit.co/videos/23873/23873-360.mp4",
+        "promptImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Brothers_playing.jpg/480px-Brothers_playing.jpg",
+        "options": [
+          {
+            "id": "a",
+            "label": "irmã",
+            "symbol": "👧",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Sisters.jpg/480px-Sisters.jpg"
+          },
+          {
+            "id": "b",
+            "label": "mãe",
+            "symbol": "👩",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Mother_Daughter_Portrait.jpg/480px-Mother_Daughter_Portrait.jpg"
+          },
+          {
+            "id": "c",
+            "label": "irmão",
+            "symbol": "👦",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Brothers_playing.jpg/480px-Brothers_playing.jpg"
+          },
+          {
+            "id": "d",
+            "label": "pai",
+            "symbol": "👨",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Father_and_son.jpg/480px-Father_and_son.jpg"
+          }
+        ],
+        "correctOptionId": "c"
+      }
+    ]
+  }
+}
