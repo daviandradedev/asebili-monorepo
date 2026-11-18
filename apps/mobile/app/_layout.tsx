@@ -1,0 +1,82 @@
+import { Feather } from "@expo/vector-icons";
+import { useFonts } from "expo-font";
+import { Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import { StatusBar } from "expo-status-bar";
+import { useEffect } from "react";
+import { Platform, StyleSheet, View } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { enableScreens } from "react-native-screens";
+import { AppFrame } from "../src/components/app-frame";
+import { WebShell } from "../src/components/web-shell";
+import { VLibrasWidget } from "../src/components/vlibras-widget";
+import {
+  PreferencesProvider,
+  usePreferences,
+} from "../src/contexts/preferences-context";
+import { lightColors } from "../src/theme";
+
+if (Platform.OS === "web") {
+  enableScreens(false);
+}
+
+SplashScreen.preventAutoHideAsync().catch(() => {});
+
+const stackScreenOptions = {
+  headerShown: false,
+  title: "Asebili",
+  contentStyle: { flex: 1, width: "100%" as const },
+};
+
+function RootStack() {
+  const { theme } = usePreferences();
+
+  return (
+    <>
+      <StatusBar style={theme === "dark" ? "light" : "dark"} />
+      <Stack screenOptions={stackScreenOptions} />
+    </>
+  );
+}
+
+export default function RootLayout() {
+  const [fontsLoaded, fontError] = useFonts(Feather.font);
+
+  useEffect(() => {
+    if (fontsLoaded || fontError) {
+      void SplashScreen.hideAsync();
+    }
+  }, [fontError, fontsLoaded]);
+
+  if (!fontsLoaded && !fontError) {
+    return <View style={styles.boot} />;
+  }
+
+  return (
+    <GestureHandlerRootView style={styles.root}>
+      <SafeAreaProvider style={styles.root}>
+        <PreferencesProvider>
+          <WebShell>
+            <AppFrame>
+              <RootStack />
+            </AppFrame>
+          </WebShell>
+        </PreferencesProvider>
+      </SafeAreaProvider>
+      <VLibrasWidget />
+    </GestureHandlerRootView>
+  );
+}
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    width: "100%",
+    minHeight: "100%",
+  },
+  boot: {
+    flex: 1,
+    backgroundColor: lightColors.bg,
+  },
+});
