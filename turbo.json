@@ -1,0 +1,51 @@
+{
+  "$schema": "https://turborepo.dev/schema.json",
+  "ui": "tui",
+  "globalEnv": [
+    "AUTH_DATABASE_URL",
+    "BETTER_AUTH_COOKIE_DOMAIN",
+    "BETTER_AUTH_SECRET",
+    "BETTER_AUTH_TRUSTED_ORIGINS",
+    "BETTER_AUTH_URL",
+    "DATABASE_POOL_MAX",
+    "DATABASE_URL",
+    "EXPO_PUBLIC_API_URL",
+    "NEXT_PUBLIC_APP_URL",
+    "NEXT_PUBLIC_AUTH_URL",
+    "NODE_ENV",
+    "VERCEL_BRANCH_URL",
+    "VERCEL_ENV",
+    "VERCEL_PROJECT_PRODUCTION_URL",
+    "VERCEL_URL"
+  ],
+  "tasks": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env*"
+      ],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "dist/**"
+      ]
+    },
+    "lint": {
+      "dependsOn": [
+        "^lint"
+      ]
+    },
+    "check-types": {
+      "dependsOn": [
+        "^check-types"
+      ]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    }
+  }
+}
